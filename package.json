@@ -1,0 +1,27 @@
+{
+  "name": "pokemon-api",
+  "version": "1.0.0",
+  "description": "> Hey! Wait! Don't go out! It's unsafe! Wild Pokémon live in tall grass! You need your own Pokémon for your protection > - Gandhi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dananando/pokemon-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dananando/pokemon-API/issues"
+  },
+  "homepage": "https://github.com/Dananando/pokemon-API#readme",
+  "dependencies": {
+    "apollo-server": "^2.25.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.1",
+    "pg": "^8.6.0"
+  }
+}
