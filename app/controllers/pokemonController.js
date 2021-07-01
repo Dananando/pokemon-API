@@ -1,4 +1,5 @@
-const authorDatamapper = require('../dataMappers/authorDatamapper');
+// From older project - To be corrected
+const authorDatamapper = require('../dataMappers/pokemonDatamapper');
 
 const authorController = {
     async getAll(request, response, next) {

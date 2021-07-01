@@ -1,3 +1,5 @@
+// From older project - To be corrected
+
 const database = require('../database');
 
 const authorDatamapper = {
