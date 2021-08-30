@@ -1,12 +1,12 @@
 // From older project - To be corrected
-const authorDatamapper = require('../dataMappers/pokemonDatamapper');
+const pokemonDatamapper = require('../dataMappers/pokemonDatamapper');
 
-const authorController = {
-    async getAll(request, response, next) {
+const pokemonController = {
+    async getAll(_, response, next) {
         try {
-            const authors = await authorDatamapper.getAll();
-            if (authors) {
-                response.status(200).json(authors);
+            const pokemons = await pokemonDatamapper.getAll();
+            if (pokemons) {
+                response.status(200).json(pokemons);
             } else {
                 next();
             }
@@ -18,9 +18,9 @@ const authorController = {
     async getOne(request, response, next) {
         const id = Number(request.params.id);
         try {
-            const theAuthor = await authorDatamapper.getOne(id);
-            if (theAuthor) {
-                response.status(200).json(theAuthor);
+            const thePokemon = await pokemonDatamapper.getOne(id);
+            if (thePokemon) {
+                response.status(200).json(thePokemon);
             } else {
                 next();
             }
@@ -61,4 +61,4 @@ const authorController = {
     }
 };
 
-module.exports = authorController;
+module.exports = pokemonController;
