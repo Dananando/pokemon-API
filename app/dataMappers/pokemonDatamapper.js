@@ -5,7 +5,7 @@ const database = require('../database');
 const authorDatamapper = {
     async getAll() {
         const query = {
-            text: `SELECT * FROM "author";`
+            text: `SELECT * FROM "pokemon";`
         };
 
         try {
@@ -19,7 +19,7 @@ const authorDatamapper = {
 
     async getOne(id) {
         const query = {
-            text: `SELECT * FROM "author" WHERE id = $1;`,
+            text: `SELECT * FROM "pokemon" WHERE id = $1;`,
             values: [id]
         };
 
