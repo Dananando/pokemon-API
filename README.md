@@ -1,5 +1,5 @@
 > Hey! Wait! Don't go out! It's unsafe! Wild Pokémon live in tall grass! You need your own Pokémon for your protection
-> - Gandhi, adocate for pokemon-human peaceful relations
+> - Gandhi, advocate for pokemon-human peaceful relations
 
 
 # Pokemon API
