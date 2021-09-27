@@ -2,8 +2,8 @@
 
 BEGIN;
 
-SELECT * FROM "author" WHERE false;
-SELECT * FROM "serie" WHERE false;
-SELECT * FROM "book" WHERE false;
+SELECT * FROM "type" WHERE false;
+SELECT * FROM "pokemon_type" WHERE false;
+SELECT * FROM "pokemon" WHERE false;
 
 ROLLBACK;

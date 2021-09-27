@@ -2,7 +2,7 @@
 
 const database = require('../database');
 
-const authorDatamapper = {
+const pokemonDatamapper = {
     async getAll() {
         const query = {
             text: `SELECT * FROM "pokemon";`
@@ -14,6 +14,7 @@ const authorDatamapper = {
             return rows;
         } catch (error) {
             console.trace(error);
+            throw new Error('Error occurred', { cause: error.message });
         }
     },
 
@@ -33,11 +34,25 @@ const authorDatamapper = {
         }
     },
 
-    async saveOrUpdate(author) {
-        if (author.id) {
+    async saveOrUpdate(pokemon) {
+        if (pokemon.id) {
             const query = {
-                text: `UPDATE "author" SET first_name = $1, last_name = $2, birth_date = $3,birth_place = $4 WHERE id = $5 RETURNING id;`,
-                values: [author.first_name, author.last_name, author.birth_date, author.birth_place, author.id]
+                text: `UPDATE "pokemon" SET
+                nom = $1,
+                pv = $2,
+                attaque = $3,
+                defense = $4,
+                attaque_spe = $5,
+                defense_spe = $6,
+                vitesse WHERE id = $7 RETURNING id;`,
+                values: [
+                    pokemon.nom,
+                    pokemon.pv,
+                    pokemon.attaque,
+                    pokemon.defense,
+                    pokemon.attaque_spe,
+                    pokemon.defense_spe,
+                    pokemon.vitesse, pokemon.id]
             };
             try {
                 const { rows } = await database.query(query);
@@ -48,12 +63,18 @@ const authorDatamapper = {
             }
         } else {
             const query = {
-                text: `INSERT INTO "author" (first_name, last_name, birth_date, birth_place) VALUES ($1, $2, $3, $4) RETURNING id;`,
-                values: [author.first_name, author.last_name, author.birth_date, author.birth_place]
+                text: `INSERT INTO "pokemon" (nom, pv, attaque, defense, attaque_spe, defense_spe, vitesse) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;`,
+                values: [
+                    pokemon.nom,
+                    pokemon.pv,
+                    pokemon.attaque,
+                    pokemon.defense,
+                    pokemon.attaque_spe,
+                    pokemon.defense_spe,
+                    pokemon.vitesse]
             };
             try {
                 const { rows } = await database.query(query);
-                // author.id = rows[0].id;
                 return rows[0];
             } catch (error) {
                 console.trace(error);
@@ -64,7 +85,7 @@ const authorDatamapper = {
 
     async delete(id) {
         const query = {
-            text: `DELETE FROM author WHERE id = $1;`,
+            text: `DELETE FROM "pokmon" WHERE id = $1;`,
             values: [id]
         };
 
@@ -78,4 +99,4 @@ const authorDatamapper = {
     }
 };
 
-module.exports = authorDatamapper;
+module.exports = pokemonDatamapper;

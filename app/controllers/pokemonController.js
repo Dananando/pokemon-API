@@ -12,6 +12,7 @@ const pokemonController = {
             }
         } catch (error) {
             console.trace(error);
+            throw new Error('Error occurred', { cause: error.message });
         }
     },
 
@@ -26,37 +27,38 @@ const pokemonController = {
             }
         } catch (error) {
             console.trace(error);
+            throw new Error('Error occurred', { cause: error.message });
         }
     },
 
     async saveOrUpdate(request, response, next) {
-        const author = request.body;
+        const pokemon = request.body;
         try {
-            const savedAuthor = await authorDatamapper.saveOrUpdate(author);
-            console.log('Saved author: ', savedAuthor);
-            if (savedAuthor) {
-                response.status(201).json(savedAuthor);
+            const savedPokemon = await pokemonDatamapper.saveOrUpdate(pokemon);
+            console.log('Saved pokemon: ', savedPokemon);
+            if (savedPokemon) {
+                response.status(201).json(savedPokemon);
             } else {
                 next();
             }
         } catch (error) {
             console.trace(error);
-            response.status(500).json(error.message);
+            throw new Error('Error occurred', { cause: error.message });
         }
     },
 
     async delete(request, response, next) {
         const id = Number(request.params.id);
         try {
-            const deletedAuthor = await authorDatamapper.delete(id);
-            if (deletedAuthor) {
-                response.status(204).json(deletedAuthor);
+            const deletedPokemon = await pokemonDatamapper.delete(id);
+            if (deletedPokemon) {
+                response.status(204).json(deletedPokemon);
             } else {
                 next();
             }
         } catch (error) {
             console.trace(error);
-            throw error;
+            throw new Error('Error occurred', { cause: error.message });
         }
     }
 };
