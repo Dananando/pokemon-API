@@ -8,6 +8,8 @@ const cors = require('cors');
 // Import swagger options for documentation of the API
 const options = require('./app/middlewares/swagger-options');
 
+const pokemon = require('./data/pokemon.json');
+
 // dotenv to use the .env file
 require('dotenv').config();
 
@@ -20,7 +22,7 @@ const { graphqlHTTP } = require('express-graphql');
 expressSwagger(options);
 
 // Where the routes are defined
-const router = require('./app/router');
+// const router = require('./app/router');
 
 const PORT = process.env.PORT || 4444;
 
@@ -60,7 +62,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(PokemonType),
             args: { id: { type: GraphQLInt } },
             resolve(parent, args) {
-                return 
+                return pokemon;
             }
         }
     }
