@@ -31,18 +31,17 @@ const pokemonController = {
         }
     },
 
-    async saveOrUpdate(request, response, next) {
+    async update(request, response, next) {
         const pokemon = request.body;
         try {
-            const savedPokemon = await pokemonDatamapper.saveOrUpdate(pokemon);
-            console.log('Saved pokemon: ', savedPokemon);
-            if (savedPokemon) {
-                response.status(201).json(savedPokemon);
+            const pokemonToUpdate = await pokemonDatamapper.update(pokemon);
+            console.log('Saved pokemon: ', pokemonToUpdate);
+            if (pokemonToUpdate) {
+                response.status(201).json(pokemonToUpdate);
             } else {
                 next();
             }
         } catch (error) {
-            console.trace(error);
             throw new Error('Error occurred', { cause: error.message });
         }
     },
@@ -52,12 +51,11 @@ const pokemonController = {
         try {
             const deletedPokemon = await pokemonDatamapper.delete(id);
             if (deletedPokemon) {
-                response.status(204).json(deletedPokemon);
+                response.status(200).json(deletedPokemon);
             } else {
                 next();
             }
         } catch (error) {
-            console.trace(error);
             throw new Error('Error occurred', { cause: error.message });
         }
     }

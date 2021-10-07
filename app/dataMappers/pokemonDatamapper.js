@@ -34,52 +34,32 @@ const pokemonDatamapper = {
         }
     },
 
-    async saveOrUpdate(pokemon) {
-        if (pokemon.id) {
-            const query = {
-                text: `UPDATE "pokemon" SET
-                nom = $1,
-                pv = $2,
-                attaque = $3,
-                defense = $4,
-                attaque_spe = $5,
-                defense_spe = $6,
-                vitesse WHERE id = $7 RETURNING id;`,
-                values: [
-                    pokemon.nom,
-                    pokemon.pv,
-                    pokemon.attaque,
-                    pokemon.defense,
-                    pokemon.attaque_spe,
-                    pokemon.defense_spe,
-                    pokemon.vitesse, pokemon.id]
-            };
-            try {
-                const { rows } = await database.query(query);
-                return rows[0];
-            } catch (error) {
-                console.trace(error);
-                throw error;
-            }
-        } else {
-            const query = {
-                text: `INSERT INTO "pokemon" (nom, pv, attaque, defense, attaque_spe, defense_spe, vitesse) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;`,
-                values: [
-                    pokemon.nom,
-                    pokemon.pv,
-                    pokemon.attaque,
-                    pokemon.defense,
-                    pokemon.attaque_spe,
-                    pokemon.defense_spe,
-                    pokemon.vitesse]
-            };
-            try {
-                const { rows } = await database.query(query);
-                return rows[0];
-            } catch (error) {
-                console.trace(error);
-                throw error;
-            }
+    async update(pokemon) {
+        const query = {
+            text: `UPDATE "pokemon" SET
+            nom = $1,
+            pv = $2,
+            attaque = $3,
+            defense = $4,
+            attaque_spe = $5,
+            defense_spe = $6,
+            vitesse WHERE id = $7 RETURNING id;`,
+            values: [
+                pokemon.nom,
+                pokemon.pv,
+                pokemon.attaque,
+                pokemon.defense,
+                pokemon.attaque_spe,
+                pokemon.defense_spe,
+                pokemon.vitesse,
+                pokemon.id]
+        };
+
+        try {
+            const { rows } = await database.query(query);
+            return rows[0];
+        } catch (error) {
+            throw new Error(error);
         }
     },
 

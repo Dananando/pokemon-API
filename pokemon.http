@@ -1,0 +1,5 @@
+### Get all Pokemons
+GET http://localhost:3333/v1/pokemons
+
+### Get one Pokemon
+GET http://localhost:3333/v1/pokemons/1300
