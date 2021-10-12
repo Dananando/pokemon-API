@@ -16,7 +16,8 @@ require('dotenv').config();
 // Swagger configuration
 const expressSwagger = require('express-swagger-generator')(app);
 
-const graphql, { GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList } = require('graphql');
+const graphql = require('graphql');
+const { GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLList } = graphql;
 const { graphqlHTTP } = require('express-graphql');
 
 expressSwagger(options);
@@ -67,7 +68,40 @@ const RootQuery = new GraphQLObjectType({
         }
     }
 });
-const Mutation = "mutation";
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        createPokemon: {
+            type: PokemonType,
+            args: {
+                id: { type: GraphQLInt },
+                nom: { type: GraphQLString },
+                pv: { type: GraphQLInt },
+                attaque: { type: GraphQLInt },
+                defense: { type: GraphQLInt },
+                attaque_spe: { type: GraphQLInt },
+                defense_spe: { type: GraphQLInt },
+                vitesse: { type: GraphQLInt },
+                numero: { type: GraphQLInt }
+            },
+            resolve(parent, args) {
+                const pokemonLength = pokemon.length-1;
+                pokemon.push({
+                    id: pokemon[pokemonLength].id+1,
+                    nom: args.nom,
+                    pv: args.pv,
+                    attaque: args.attaque,
+                    defense: args.defense,
+                    attaque_spe: args.attaque_spe,
+                    defense_spe: args.defense_spe,
+                    vitesse: args.vitesse,
+                    numero: pokemon[pokemonLength].numero+1
+                });
+                return args;
+            }
+        }
+    }
+});
 
 const schema = new GraphQLSchema({
     query: RootQuery,
